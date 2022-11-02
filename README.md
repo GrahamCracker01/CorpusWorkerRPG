@@ -6,6 +6,8 @@ Update 4 notes:
 - updated new day counter to prevent efficiency from reaching negative values
 - removed unnecessary variables
 - fixed working not giving any money after day 1
+- fixed hours resetting at new day even if hours left should be less than 26
+
 
 Update 3 notes:
 - added checks for invalid entries

@@ -83,17 +83,17 @@ class Main {
 
                     //new day check
                     if (intHoursLeft <=0 ) {
-                       intDay ++;
-                       intHoursLeft = 26;
-                       intDebt -= intEarned;
-                       intDebt = debtIncrease(intDebt, fltInterest);
-                       intEarned = 0;
-                       fltEff -= 50;
-                       if (fltEff < 0) {
-                           fltEff = 0;
-                       }
-                       intMeals = 0;
-                       System.out.println("A new day has begun.");
+                        intDay ++;
+                        intHoursLeft = 26 - intHoursLeft;
+                        intDebt -= intEarned;
+                        intDebt = debtIncrease(intDebt, fltInterest);
+                        intEarned = 0;
+                        fltEff -= 50;
+                        if (fltEff < 0) {
+                            fltEff = 0;
+                        }
+                        intMeals = 0;
+                        System.out.println("A new day has begun.");
                     }
                     break;
 
@@ -124,7 +124,7 @@ class Main {
                                 //new day check
                                 if (intHoursLeft <=0 ) {
                                     intDay ++;
-                                    intHoursLeft = 26;
+                                    intHoursLeft = 26 - intHoursLeft;
                                     intDebt -= intEarned;
                                     intDebt = debtIncrease(intDebt, fltInterest);
                                     intEarned = 0;
@@ -163,7 +163,7 @@ class Main {
                                 //new day check
                                 if (intHoursLeft <=0 ) {
                                     intDay ++;
-                                    intHoursLeft = 26;
+                                    intHoursLeft = 26 - intHoursLeft;
                                     intDebt -= intEarned;
                                     intDebt = debtIncrease(intDebt, fltInterest);
                                     intEarned = 0;
@@ -240,7 +240,7 @@ class Main {
                             //new day check
                             if (intHoursLeft <=0 ) {
                                 intDay ++;
-                                intHoursLeft = 26;
+                                intHoursLeft = 26 - intHoursLeft;
                                 intDebt -= intEarned;
                                 intDebt = debtIncrease(intDebt, fltInterest);
                                 intEarned = 0;
@@ -313,7 +313,7 @@ class Main {
                     //new day check
                     if (intHoursLeft <=0 ) {
                         intDay ++;
-                        intHoursLeft = 26;
+                        intHoursLeft = 26 - intHoursLeft;
                         intDebt -= intEarned;
                         intDebt = debtIncrease(intDebt, fltInterest);
                         intEarned = 0;
