@@ -84,7 +84,7 @@ class Main {
                     //new day check
                     if (intHoursLeft <=0 ) {
                         intDay ++;
-                        intHoursLeft = 26 - intHoursLeft;
+                        intHoursLeft = 26 + intHoursLeft;
                         intDebt -= intEarned;
                         intDebt = debtIncrease(intDebt, fltInterest);
                         intEarned = 0;
@@ -124,7 +124,7 @@ class Main {
                                 //new day check
                                 if (intHoursLeft <=0 ) {
                                     intDay ++;
-                                    intHoursLeft = 26 - intHoursLeft;
+                                    intHoursLeft = 26 + intHoursLeft;
                                     intDebt -= intEarned;
                                     intDebt = debtIncrease(intDebt, fltInterest);
                                     intEarned = 0;
@@ -163,7 +163,7 @@ class Main {
                                 //new day check
                                 if (intHoursLeft <=0 ) {
                                     intDay ++;
-                                    intHoursLeft = 26 - intHoursLeft;
+                                    intHoursLeft = 26 + intHoursLeft;
                                     intDebt -= intEarned;
                                     intDebt = debtIncrease(intDebt, fltInterest);
                                     intEarned = 0;
@@ -240,7 +240,7 @@ class Main {
                             //new day check
                             if (intHoursLeft <=0 ) {
                                 intDay ++;
-                                intHoursLeft = 26 - intHoursLeft;
+                                intHoursLeft = 26 + intHoursLeft;
                                 intDebt -= intEarned;
                                 intDebt = debtIncrease(intDebt, fltInterest);
                                 intEarned = 0;
@@ -313,7 +313,7 @@ class Main {
                     //new day check
                     if (intHoursLeft <=0 ) {
                         intDay ++;
-                        intHoursLeft = 26 - intHoursLeft;
+                        intHoursLeft = 26 + intHoursLeft;
                         intDebt -= intEarned;
                         intDebt = debtIncrease(intDebt, fltInterest);
                         intEarned = 0;
