@@ -23,9 +23,9 @@ class Main {
     }
 
     //debt increase method
-    public static int debtIncrease(int intDebt, float fltInterest, int intPenalty) {
+    public static int debtIncrease(int intDebt, float fltInterest) {
         float fltDebt = intDebt;
-        fltDebt = (fltDebt + (fltDebt * fltInterest) + (intPenalty*50));
+        fltDebt = (fltDebt + (fltDebt * fltInterest));
         intDebt = (int) fltDebt;
         return intDebt;
     }
@@ -35,9 +35,9 @@ class Main {
 
         //declare scanner and variables
         Scanner scan = new Scanner(System.in);
-        int intInputMain, intInputSecond, intSleep, intNewDay;
-        int intDay = 1, intHoursLeft = 26, intMeals = 0, intEarned = 0, intEarnedTotal = 0, intDebt = 127000, intPenalty = 0, intEff = 100, intMaxEff = 100, intMods = 0;
-        float fltInterest = 0.15f, fltWage = 800f;
+        int intInputMain, intInputSecond, intSleep;
+        int intDay = 1, intHoursLeft = 26, intMeals = 0, intEarned = 0, intEarnedTotal = 0, intDebt = 127000, intMods = 0, intWage = 800;
+        float fltInterest = 0.20f, fltEff = 100;
         boolean boolStop = false, boolSecond = false;
 
         //initial output, get name, and begin
@@ -71,24 +71,30 @@ class Main {
                         System.out.println("Invalid entry.");
                         break;
                     }
-                    intEarned = (int) (intInputSecond * fltWage * (intEff / 100));
-                    System.out.println("You earned " + intEarned + " credits. Well done!");
-                    intDebt -= intEarned;
+                    else if (intInputSecond > 26) {
+                        System.out.println("You cannot work more than one full day at a time.");
+                        break;
+                    }
+                    intEarned += (intInputSecond * intWage * (fltEff / 100));
                     intEarnedTotal += intEarned;
                     intHoursLeft -= intInputSecond;
+                    System.out.println("You earned " + intEarned + " credits. Well done!");
+                    System.out.println("\n------------");
 
                     //new day check
                     if (intHoursLeft <=0 ) {
-                        intNewDay = (-(intHoursLeft) / 26) + 1;
-                        intDay += intNewDay;
-                        intHoursLeft = (26 + (intHoursLeft % 26));
-                        intDebt = intNewDay * debtIncrease(intDebt, fltInterest, intPenalty);
-                        intEarned = 0;
-                        intEff -= 50;
-                        intMeals = 0;
-                        System.out.println("A new day has begun.");
+                       intDay ++;
+                       intHoursLeft = 26;
+                       intDebt -= intEarned;
+                       intDebt = debtIncrease(intDebt, fltInterest);
+                       intEarned = 0;
+                       fltEff -= 50;
+                       if (fltEff < 0) {
+                           fltEff = 0;
+                       }
+                       intMeals = 0;
+                       System.out.println("A new day has begun.");
                     }
-                    System.out.println("\n------------");
                     break;
 
                 //home loop, contains status, sleep, eat, go back, and quit options
@@ -117,22 +123,25 @@ class Main {
 
                                 //new day check
                                 if (intHoursLeft <=0 ) {
-                                    intNewDay = (-(intHoursLeft) / 26) + 1;
-                                    intDay += intNewDay;
-                                    intHoursLeft = (26 + (intHoursLeft % 26));
-                                    intDebt = intNewDay * debtIncrease(intDebt, fltInterest, intPenalty);
+                                    intDay ++;
+                                    intHoursLeft = 26;
+                                    intDebt -= intEarned;
+                                    intDebt = debtIncrease(intDebt, fltInterest);
                                     intEarned = 0;
-                                    intEff -= 50;
+                                    fltEff -= 50;
+                                    if (fltEff < 0) {
+                                        fltEff = 0;
+                                    }
                                     intMeals = 0;
                                     System.out.println("A new day has begun.");
                                 }
                                 if (intSleep <= 7) {
-                                    intEff += ((50 * intSleep) / 8);
+                                    fltEff += ((50 * intSleep) / 8);
                                 } else {
-                                    intEff += 50;
+                                    fltEff += 50;
                                 }
-                                if (intEff > intMaxEff) {
-                                    intEff = intMaxEff;
+                                if (fltEff > 100) {
+                                    fltEff = 100;
                                 }
                                 System.out.println("You wake up feeling refreshed. Your efficiency has been restored.");
                                 break;
@@ -140,9 +149,9 @@ class Main {
                             //eat
                             case 3:
                                 if (intMeals < 2) {
-                                    intEff += 20;
-                                    if (intEff > intMaxEff) {
-                                        intEff = intMaxEff;
+                                    fltEff += 20;
+                                    if (fltEff > 100) {
+                                        fltEff = 100;
                                     }
                                     System.out.println("You feel satisfied. Your efficiency has been restored.");
                                 }
@@ -153,12 +162,15 @@ class Main {
                                 intMeals++;
                                 //new day check
                                 if (intHoursLeft <=0 ) {
-                                    intNewDay = (-(intHoursLeft) / 26) + 1;
-                                    intDay += intNewDay;
-                                    intHoursLeft = (26 + (intHoursLeft % 26));
-                                    intDebt = intNewDay * debtIncrease(intDebt, fltInterest, intPenalty);
+                                    intDay ++;
+                                    intHoursLeft = 26;
+                                    intDebt -= intEarned;
+                                    intDebt = debtIncrease(intDebt, fltInterest);
                                     intEarned = 0;
-                                    intEff -= 50;
+                                    fltEff -= 50;
+                                    if (fltEff < 0) {
+                                        fltEff = 0;
+                                    }
                                     intMeals = 0;
                                     System.out.println("A new day has begun.");
                                 }
@@ -202,37 +214,40 @@ class Main {
                                     System.out.println("You have replaced your legs with robotic enhancements. You can now stand longer and lift more weight, " +
                                             "increasing your productivity.\nThe Corpus have been generous enough to offer this for no cost, apart from an " +
                                             "increased interest rate.\n");
-                                    fltInterest = 0.23f;
-                                    fltWage = 1150f;
+                                    fltInterest = 0.26f;
+                                    intWage = 1150;
                                     break;
                                 case 2:
                                     System.out.println("You have replaced your arms with robotic prosthetics, allowing you to work harder and more accurately.\nThe " +
                                             "Corpus have been generous enough to offer this for no cost, apart from an increased interest rate.\n");
-                                    fltInterest = 0.28f;
-                                    fltWage = 1400f;
+                                    fltInterest = 0.3f;
+                                    intWage = 1400;
                                     break;
                                 case 3:
                                     System.out.println("You have replaced your internal organs, apart from your head, with enhanced prosthetics. You are much more " +
                                             "durable, and need no breaks during work hours.\n The Corpus have been generous enough to offer this for no cost, apart " +
                                             "from an increased interest rate.\n");
-                                    fltInterest = 0.3f;
-                                    fltWage = 1600f;
+                                    fltInterest = 0.35f;
+                                    intWage = 1600;
                                     break;
                                 case 4:
                                     System.out.println("You have replaced your head with a robotic apparatus. You will no longer feel tired, or pain, or anything at " +
                                             "all.\n The Corpus have been generous enough to offer this for no cost, apart from an increased interest rate.\n");
-                                    fltInterest = 0.34f;
-                                    fltWage = 1800f;
+                                    fltInterest = 0.38f;
+                                    intWage = 1800;
                                     break;
                             }
                             //new day check
-                            if (intHoursLeft <= 0) {
-                                intNewDay = (-(intHoursLeft) / 26) + 1;
-                                intDay += intNewDay;
-                                intHoursLeft = (26 + (intHoursLeft % 26));
-                                intDebt = intNewDay * debtIncrease(intDebt, fltInterest, intPenalty);
+                            if (intHoursLeft <=0 ) {
+                                intDay ++;
+                                intHoursLeft = 26;
+                                intDebt -= intEarned;
+                                intDebt = debtIncrease(intDebt, fltInterest);
                                 intEarned = 0;
-                                intEff -= 50;
+                                fltEff -= 50;
+                                if (fltEff < 0) {
+                                    fltEff = 0;
+                                }
                                 intMeals = 0;
                                 System.out.println("A new day has begun.");
                             }
@@ -262,7 +277,7 @@ class Main {
                                     "legs were worth enough credits to significantly reduce your debt. To ensure you remain motivated to work hard, your " +
                                     "interest rate has been raised.\n------------");
                             fltInterest = 0.23f;
-                            fltWage = 1150f;
+                            intWage = 1150;
                             intDebt = 170000;
                             break;
                         case 2:
@@ -271,7 +286,7 @@ class Main {
                                     "significantly reduce your debt. To ensure you remain motivated to work hard, your interest rate has been raised.\n" +
                                     "------------");
                             fltInterest = 0.28f;
-                            fltWage = 1300f;
+                            intWage = 1300;
                             intDebt = 160000;
                             break;
                         case 3:
@@ -280,7 +295,7 @@ class Main {
                                     "thanks. Your organs were worth enough credits to significantly reduce your debt. To ensure you remain motivated to work " +
                                     "hard, your interest rate has been raised.\n------------");
                             fltInterest = 0.3f;
-                            fltWage = 1600f;
+                            intWage = 1600;
                             intDebt = 150000;
                             break;
                         case 4:
@@ -289,25 +304,23 @@ class Main {
                                     "to significantly reduce your debt. To ensure you remain motivated to work hard, your interest rate has been raised.\n" +
                                     "------------");
                             fltInterest = 0.34f;
-                            fltWage = 1800f;
+                            intWage = 1800;
                             intDebt = 140000;
                             break;
                         default:
-                            System.out.println("You shouldn't be here");
+                            System.out.println("You shouldn't be here.");
                     }
                     //new day check
                     if (intHoursLeft <=0 ) {
-                        if (intHoursLeft % 26 == 0 ) {
-                            intNewDay = (intHoursLeft / 26);
-                        }
-                        else {
-                            intNewDay = (intHoursLeft / 26) + 1;
-                        }
-                        intDay += intNewDay;
-                        intHoursLeft = (26 + (intHoursLeft % 26));
-                        intDebt = intNewDay * debtIncrease(intDebt, fltInterest, intPenalty);
+                        intDay ++;
+                        intHoursLeft = 26;
+                        intDebt -= intEarned;
+                        intDebt = debtIncrease(intDebt, fltInterest);
                         intEarned = 0;
-                        intEff -= 50;
+                        fltEff -= 50;
+                        if (fltEff < 0) {
+                            fltEff = 0;
+                        }
                         intMeals = 0;
                         System.out.println("A new day has begun.");
                     }
@@ -326,5 +339,7 @@ class Main {
 /*notes
 double check math
 test with a large variety of values - debt should never be below 127000 at the start of a new day
-if intMods == 4, no enhancements can be found
+test working multiple days - efficiency should not reach negative values
+efficiency should at most halve profit, not bring it down to zero
+working multiple days leads to no money earned
 */
