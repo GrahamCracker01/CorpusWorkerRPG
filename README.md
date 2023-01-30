@@ -1,5 +1,5 @@
 # CorpusWorkerRPG
-Text-based RPG based on Warframe. You play as a Corpus worker, trying to work your way out of debt. Managing efficiency versus time worked, and trying to get sleep and meals in are important features. The option to replace body parts to raise your wages is available, and repo squads will come after you if your debt gets too high.
+Text-based RPG based on Warframe. You play as a Corpus worker, trying to work your way out of debt. Managing efficiency versus time worked, trying to get enough sleep, and fitting meals in are important features. The option to replace body parts to raise your wages is available, and repo squads will come after you if your debt gets too high.
 
 Update 4 notes:
 - updated work to accurately reflect working multiple days with lowering efficiency
