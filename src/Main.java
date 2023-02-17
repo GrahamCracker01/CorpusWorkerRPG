@@ -6,9 +6,28 @@
 
 import java.util.Scanner;
 class Main {
+    static int intDay = 1, intHoursLeft = 26, intMeals = 0, intEarned = 0, intEarnedTotal = 0, intDebt = 127000, intMods = 0, intWage = 800;
+    static float fltInterest = 0.20f, fltEff = 100;
+
+    //new day check
+    public static void newDayCheck() {
+        if (intHoursLeft <=0 ) {
+            intDay ++;
+            intHoursLeft = 26 + intHoursLeft;
+            intDebt -= intEarned;
+            intDebt = debtIncrease();
+            intEarned = 0;
+            fltEff -= 50;
+            if (fltEff < 0) {
+                fltEff = 0;
+            }
+            intMeals = 0;
+            System.out.println("A new day has begun.");
+        }
+    }
 
     //Status check method
-    public static void statusCheck(int intDay, int intHoursLeft, int intEarned, int intEarnedTotal, int intDebt, float fltInterest) {
+    public static void statusCheck() {
 
         //output and if statement deciding whether to use plural or singular hours
         System.out.print("------------\nIt is day " + intDay + ". There ");
@@ -23,7 +42,7 @@ class Main {
     }
 
     //debt increase method
-    public static int debtIncrease(int intDebt, float fltInterest) {
+    public static int debtIncrease() {
         float fltDebt = intDebt;
         fltDebt = (fltDebt + (fltDebt * fltInterest));
         intDebt = (int) fltDebt;
@@ -35,9 +54,6 @@ class Main {
 
         //declare scanner and variables
         Scanner scan = new Scanner(System.in);
-        int intInputMain, intInputSecond, intSleep;
-        int intDay = 1, intHoursLeft = 26, intMeals = 0, intEarned = 0, intEarnedTotal = 0, intDebt = 127000, intMods = 0, intWage = 800;
-        float fltInterest = 0.20f, fltEff = 100;
         boolean boolStop = false, boolSecond = false;
 
         //initial output, get name, and begin
@@ -53,90 +69,61 @@ class Main {
         //main game loop, calling methods for individual choices
         while (!boolStop) {
             System.out.println("\tWhat would you like to do?\n1) Check personal status\n2) Go to work\n3) Go home\n4) Search for enhancements\n5) Quit");
-            intInputMain = scan.nextInt();
-            switch (intInputMain) {
+            int intInput = Integer.parseInt(scan.nextLine());
+            switch (intInput) {
 
-                //call status method
                 case 1:
-                    statusCheck(intDay, intHoursLeft, intEarned, intEarnedTotal, intDebt, fltInterest);
+                    statusCheck();
                     break;
 
                 //work menu
                 case 2:
                     System.out.println("How many hours would you like to work?");
-                    intInputSecond = scan.nextInt();
+                    intInput = Integer.parseInt(scan.nextLine());
 
                     //value check
-                    if (intInputSecond < 1) {
+                    if (intInput < 1) {
                         System.out.println("Invalid entry.");
                         break;
                     }
-                    else if (intInputSecond > 26) {
+                    else if (intInput > 26) {
                         System.out.println("You cannot work more than one full day at a time.");
                         break;
                     }
-                    intEarned += (intInputSecond * intWage * (fltEff / 100));
+                    intEarned += (intInput * intWage * (fltEff / 100));
                     intEarnedTotal += intEarned;
-                    intHoursLeft -= intInputSecond;
+                    intHoursLeft -= intInput;
                     System.out.println("You earned " + intEarned + " credits. Well done!");
                     System.out.println("\n------------");
 
-                    //new day check
-                    if (intHoursLeft <=0 ) {
-                        intDay ++;
-                        intHoursLeft = 26 + intHoursLeft;
-                        intDebt -= intEarned;
-                        intDebt = debtIncrease(intDebt, fltInterest);
-                        intEarned = 0;
-                        fltEff -= 50;
-                        if (fltEff < 0) {
-                            fltEff = 0;
-                        }
-                        intMeals = 0;
-                        System.out.println("A new day has begun.");
-                    }
+                    newDayCheck();
                     break;
 
                 //home loop, contains status, sleep, eat, go back, and quit options
                 case 3:
                     while (!boolSecond) {
                         System.out.println("\tWhat would you like to do?\n1) Check personal status\n2) Sleep\n3) Eat\n4) Go out\n5) Quit");
-                        intInputSecond = scan.nextInt();
-                        switch (intInputSecond) {
+                        intInput = Integer.parseInt(scan.nextLine());
+                        switch (intInput) {
 
-                            //call status method
-                            case 1:
-                                statusCheck(intDay, intHoursLeft, intEarned, intEarnedTotal, intDebt, fltInterest);
-                                break;
+                            case 1 ->
+                                    statusCheck();
 
                             //sleep
-                            case 2:
+                            case 2 -> {
                                 System.out.println("How many hours would you like to sleep?");
-                                intSleep = scan.nextInt();
+                                intInput = Integer.parseInt(scan.nextLine());
 
                                 //value check
-                                if (intSleep < 1) {
+                                if (intInput < 1) {
                                     System.out.println("Invalid entry.");
                                     break;
                                 }
-                                intHoursLeft -= intSleep;
+                                intHoursLeft -= intInput;
 
-                                //new day check
-                                if (intHoursLeft <=0 ) {
-                                    intDay ++;
-                                    intHoursLeft = 26 + intHoursLeft;
-                                    intDebt -= intEarned;
-                                    intDebt = debtIncrease(intDebt, fltInterest);
-                                    intEarned = 0;
-                                    fltEff -= 50;
-                                    if (fltEff < 0) {
-                                        fltEff = 0;
-                                    }
-                                    intMeals = 0;
-                                    System.out.println("A new day has begun.");
-                                }
-                                if (intSleep <= 7) {
-                                    fltEff += ((50 * intSleep) / 8);
+                                newDayCheck();
+                                if (intInput <= 7) {
+                                    fltEff += ((50 * intInput) / 8);
                                 } else {
                                     fltEff += 50;
                                 }
@@ -144,50 +131,34 @@ class Main {
                                     fltEff = 100;
                                 }
                                 System.out.println("You wake up feeling refreshed. Your efficiency has been restored.");
-                                break;
+                            }
 
                             //eat
-                            case 3:
+                            case 3 -> {
                                 if (intMeals < 2) {
                                     fltEff += 20;
                                     if (fltEff > 100) {
                                         fltEff = 100;
                                     }
                                     System.out.println("You feel satisfied. Your efficiency has been restored.");
-                                }
-                                else {
+                                } else {
                                     System.out.println("You finish eating, but don't feel any better.");
                                 }
                                 intHoursLeft -= 1;
                                 intMeals++;
-                                //new day check
-                                if (intHoursLeft <=0 ) {
-                                    intDay ++;
-                                    intHoursLeft = 26 + intHoursLeft;
-                                    intDebt -= intEarned;
-                                    intDebt = debtIncrease(intDebt, fltInterest);
-                                    intEarned = 0;
-                                    fltEff -= 50;
-                                    if (fltEff < 0) {
-                                        fltEff = 0;
-                                    }
-                                    intMeals = 0;
-                                    System.out.println("A new day has begun.");
-                                }
-                                break;
+                                newDayCheck();
+                            }
 
                             //end current switch, go back to outer switch
-                            case 4:
-                                boolSecond = true;
-                                break;
+                            case 4 -> boolSecond = true;
+
 
                             //quit
-                            case 5:
+                            case 5 -> {
                                 boolSecond = true;
                                 boolStop = true;
-                                break;
-                            default:
-                                System.out.println("Invalid input. Please try again");
+                            }
+                            default -> System.out.println("Invalid input. Please try again");
                         }
                     }
                     System.out.println("\n------------");
@@ -199,14 +170,14 @@ class Main {
                         System.out.println("No available enhancements were found...\n");
                     } else {
                         System.out.println("You found a shop with modifications and enhancements you can install. Would you like to install one?\n1) Yes\n2) No");
-                        intInputSecond = scan.nextInt();
+                        intInput = scan.nextInt();
 
                         //value check
-                        if (intInputSecond < 1 || intInputSecond > 2) {
+                        if (intInput < 1 || intInput > 2) {
                             System.out.println("Invalid entry.");
                             break;
                         }
-                        if (intInputSecond == 1) {
+                        if (intInput == 1) {
                             intMods++;
                             intHoursLeft -= 6;
                             switch (intMods) {
@@ -237,20 +208,7 @@ class Main {
                                     intWage = 1800;
                                     break;
                             }
-                            //new day check
-                            if (intHoursLeft <=0 ) {
-                                intDay ++;
-                                intHoursLeft = 26 + intHoursLeft;
-                                intDebt -= intEarned;
-                                intDebt = debtIncrease(intDebt, fltInterest);
-                                intEarned = 0;
-                                fltEff -= 50;
-                                if (fltEff < 0) {
-                                    fltEff = 0;
-                                }
-                                intMeals = 0;
-                                System.out.println("A new day has begun.");
-                            }
+                            newDayCheck();
                         }
                     }
                     break;
@@ -310,20 +268,7 @@ class Main {
                         default:
                             System.out.println("You shouldn't be here.");
                     }
-                    //new day check
-                    if (intHoursLeft <=0 ) {
-                        intDay ++;
-                        intHoursLeft = 26 + intHoursLeft;
-                        intDebt -= intEarned;
-                        intDebt = debtIncrease(intDebt, fltInterest);
-                        intEarned = 0;
-                        fltEff -= 50;
-                        if (fltEff < 0) {
-                            fltEff = 0;
-                        }
-                        intMeals = 0;
-                        System.out.println("A new day has begun.");
-                    }
+                    newDayCheck();
                 } else {
                     System.out.println("You are entirely comprised of robotic parts owned by the Corpus. As none of you is human anymore, and you cannot repay what you owe, " +
                             "you will be regarded as any other robot.\nYou are now the property of the Corpus, and will work until you break and then be melted down " +
