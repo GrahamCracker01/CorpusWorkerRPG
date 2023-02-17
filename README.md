@@ -2,7 +2,7 @@
 Text-based RPG based on Warframe. You play as a Corpus worker, trying to work your way out of debt. Managing efficiency versus time worked, and trying to get sleep and meals in are important features. The option to replace body parts to raise your wages is available, and repo squads will come after you if your debt gets too high.
 
 Update 5 notes:
--general improvements
+- general improvements
 
 Update 4 notes:
 - updated work to accurately reflect working multiple days with lowering efficiency
