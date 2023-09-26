@@ -240,7 +240,7 @@ class Main {
                             break;
                         case 2:
                             System.out.println("Your arms have been replaced with robotic prosthetics, allowing you to work harder and more accurately.\n" +
-                                    "The Corpus have been generous enough to reduce your debt as a token of thanks. Your legs were worth enough credits to " +
+                                    "The Corpus have been generous enough to reduce your debt as a token of thanks. Your arms were worth enough credits to " +
                                     "significantly reduce your debt. To ensure you remain motivated to work hard, your interest rate has been raised.\n" +
                                     "------------");
                             fltInterest = 0.28f;
